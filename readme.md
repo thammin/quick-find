@@ -2,6 +2,7 @@
 
 > A interactive command to find file quickly⚡️. Like `quick-open` in Visual Studio Code.
 
+<img src="screenshot.gif" width="443">
 
 ## Install
 
