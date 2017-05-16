@@ -30,3 +30,19 @@ test.cb('works on current directory if no glob option is provided.', t => {
     t.end();
   });
 });
+
+test.cb('return all results as absolute path.', t => {
+  exec(`${bin} dog`, (err, stdout) => {
+    t.ifError(err);
+    t.regex(stdout, /^\/.*\/dog\.png/);
+    t.end();
+  });
+});
+
+test.cb('return all results as relative path if --relative is passed as arguments.', t => {
+  exec(`${bin} --relative dog`, (err, stdout) => {
+    t.ifError(err);
+    t.regex(stdout, /^test\/fixture\/dog\.png/);
+    t.end();
+  });
+});

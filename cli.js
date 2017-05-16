@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+const path = require('path');
 const meow = require('meow');
 const chalk = require('chalk');
 const readline = require('readline');
@@ -14,21 +15,28 @@ const cli = meow(`
         Interactive UI will be launch if none tokens is provided.
 
   Options
-    --glob Specific files indicated by glob patterns (https://github.com/isaacs/node-glob#glob-primer).
+    --glob          Specific files indicated by glob patterns (https://github.com/isaacs/node-glob#glob-primer).
+    --relative, -r  Results will be return as relative path.
 
   Examples
     $ quick-find
     $ quick-find --glob "./images/**/*.png"
     $ quick-find src util js
     $ quick-find --glob "./images/**/*.png" src cat
-`);
+`, {
+  boolean: ['relative'],
+  alias: {
+    r: 'relative'
+  }
+});
 
 const target = cli.flags.glob || process.cwd() + '/**/*';
 const fuse = fuzzyGlob(target);
+const passer = f => cli.flags.relative ? path.relative(process.cwd(), f) : f;
 
 if (cli.input.length > 0) {
   const result = fuse.search(cli.input.join(' '));
-  console.log(result.map(m => m.file).join('\n'));
+  console.log(result.map(m => m.file).map(passer).join('\n'));
   return;
 }
 
@@ -105,7 +113,7 @@ function logResult() {
   logUpdate(`
   ${pre}${chalk.bold(query.join(''))}
   ${viewIndex > 0 ? chalk.yellow('▲') : ''}
-  ${finalResult.slice(viewIndex, viewIndex + limit).join('\n') || ''}
+  ${finalResult.slice(viewIndex, viewIndex + limit).map(passer).join('\n') || ''}
   ${viewIndex + limit < prevResult.length ? chalk.yellow('▼') : ''}
   ${indicator}
   `);
