@@ -28,6 +28,7 @@
   },
   "homepage": "https://github.com/thammin/quick-find#readme",
   "dependencies": {
+    "chalk": "^1.1.3",
     "fuzzy-glob": "^0.1.0",
     "lodash.debounce": "^4.0.8",
     "log-update": "^2.0.0",
