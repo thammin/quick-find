@@ -1,6 +1,6 @@
 {
   "name": "quick-find",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A interactive command to find file quickly⚡️.",
   "bin": "cli.js",
   "scripts": {
