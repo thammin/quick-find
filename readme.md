@@ -24,12 +24,29 @@ $ quick-find --help
 
   Options
       --glob Specific files indicated by glob patterns (https://github.com/isaacs/node-glob#glob-primer).
+      --relative, -r  Results will be return as relative path.
 
   Examples
       $ quick-find
       $ quick-find --glob "./images/**/*.png"
       $ quick-find src util js
       $ quick-find --glob "./images/**/*.png" src cat
+```
+
+#### Using programmatically
+
+```js
+const quickFind = require('quick-find');
+const option = {
+    glob: './iamges/**/*.png',
+    relative: true
+};
+
+quickFind(option)
+    .then(result => {
+        console.log(result);
+        // -> result will be the one you choose
+    });
 ```
 
 ## License

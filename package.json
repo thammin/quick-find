@@ -3,6 +3,7 @@
   "version": "0.1.2",
   "description": "A interactive command to find file quickly⚡️.",
   "bin": "cli.js",
+  "main": "index.js",
   "scripts": {
     "test": "ava"
   },
