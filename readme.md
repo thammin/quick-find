@@ -13,7 +13,7 @@ $ npm install --global quick-find
 
 ## Usage
 
-```sh
+```
 $ quick-find --help
 
   Usage
@@ -25,6 +25,7 @@ $ quick-find --help
   Options
       --glob Specific files indicated by glob patterns (https://github.com/isaacs/node-glob#glob-primer).
       --relative, -r  Results will be return as relative path.
+      --cwd           Change the current working directory.
 
   Examples
       $ quick-find

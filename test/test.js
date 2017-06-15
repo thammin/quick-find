@@ -31,6 +31,19 @@ test.cb('works on current directory if no glob option is provided.', t => {
   });
 });
 
+test.cb('able to use different working directory', t => {
+  exec(`${bin} --cwd ${fixture + '/other-directory'} angle`, (err, stdout) => {
+    t.ifError(err);
+    
+    stdout
+      .split('\n')
+      .filter(f => f)
+      .forEach(line => t.regex(line, /angle/));
+
+    t.end();
+  });
+});
+
 test.cb('return all results as absolute path.', t => {
   exec(`${bin} dog`, (err, stdout) => {
     t.ifError(err);
@@ -43,6 +56,14 @@ test.cb('return all results as relative path if --relative is passed as argument
   exec(`${bin} --relative dog`, (err, stdout) => {
     t.ifError(err);
     t.regex(stdout, /^test\/fixture\/dog\.png/);
+    t.end();
+  });
+});
+
+test.cb('return all results as relative path if --relative is passed as arguments.(different working directory)', t => {
+  exec(`${bin} --cwd ${fixture + '/other-directory'} --relative angle`, (err, stdout) => {
+    t.ifError(err);
+    t.regex(stdout, /^angle\.png/);
     t.end();
   });
 });
